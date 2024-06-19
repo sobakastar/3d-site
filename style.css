@@ -1,0 +1,474 @@
+body {
+    margin:0;
+    font: 18px Calibri, Myriad Pro;
+    color: #fff;
+    background: #000;
+    cursor: grab;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body:active {
+    cursor: grabbing;
+}
+
+.viewport {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-start;
+    transform-style: preserve-3d;
+}
+
+.cube {
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    position: absolute;
+    left: 0;
+    transition: transform 1.5s ease;
+    cursor: default;
+    font-size: 18px;
+    width: 250px;
+    height: 250px;
+}
+
+.cube > article {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: box-shadow 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    transform-style: preserve-3d;
+    background: linear-gradient(0deg, #0c1118, #111b29);
+    background: url(images/light_cube.jpg) center center no-repeat;
+    background-size: cover;
+    box-shadow: 0 0 45px #000 inset, 0 0 45px #f505;
+    text-shadow: 0 0 5px #000;
+    border: none;
+}
+
+.cube:hover > article {
+    box-shadow: 0 0 45px #0005 inset, 0 0 15px #f00;
+}
+
+.cube > article h2 {
+    font-size: 140%;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    width: 100%;
+    margin: 0;
+}
+
+.cube > article p {
+    font-size: 80%;
+    line-height: 130%;
+    margin: 1em 0;
+    letter-spacing: 0.05em;
+    word-spacing: 0.1em;
+    max-height: 150px;
+    overflow-y: hidden;
+}
+
+.cube .back {transform: rotateX(-180deg) translate3d(0, 0, 125px);}
+.cube .top {transform: rotateX(90deg) translate3d(0, 0, 125px);}
+.cube .front {transform: translate3d(0, 0, 125px);}
+.cube .bottom {transform: rotateX(-90deg) translate3d(0, 0, 125px);}
+.cube .left {transform: rotateY(-90deg) translate3d(0, 0, 125px);}
+.cube .right {transform: rotateY(90deg) translate3d(0, 0, 125px);}
+
+.menu {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: box-shadow 1s ease;
+    box-shadow: 
+        0 0 140px #059d,
+        0 0 40px #0595,
+        0 0 3px #059 inset,
+        0 0 3px #059 inset,
+        0 0 13px #059 inset,
+        0 0 23px #059 inset;
+}
+
+.menu::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 0px;
+    top: 0px;
+    background: #000;
+    border-bottom: solid 1px #fff4;
+    opacity: 0.8;
+}
+
+.menu nav {
+    height: 100%;
+    padding: 20px 0;
+}
+
+.menu nav a {
+    color: #fff;
+    margin: 0 20px;
+    position: relative;
+    z-index: 6;
+    font-size: 20px;
+    text-decoration: none;
+    transition: text-shadow 0.5s ease;
+    text-shadow: 
+        0 0 38px #059,
+        0 0 28px #059,
+        0 0 24px #059,
+        0 0 20px #059,
+        0 0 16px #059,
+        0 0 12px #059,
+        0 0 8px #059,
+        0 0 4px #059;
+}
+
+.menu nav a::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    display: block;
+    height: 1px;
+    bottom:  -2px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, #0590, #059, #0590);
+}
+
+.menu nav a:hover::after {
+    width: 180%;
+    left: -40%;
+}
+
+.menu .fulcrum {
+    position: relative;
+    z-index: 6;
+    width: 33px;
+    height: 33px;
+    cursor: pointer;
+    margin: 0 100px;
+    box-shadow: 
+        0 0 90px #059,
+        0 0 50px #059,
+        0 0 20px #059,
+        inset 0 0 20px #059,
+        inset 0 0 10px #0593;
+    transition: box-shadow .5s ease;
+}
+.menu .fulcrum:hover {
+    box-shadow: 
+        0 0 90px #f00a,
+        0 0 50px #f00a,
+        0 0 20px #f00a,
+        inset 0 0 20px #f00,
+        inset 0 0 10px #059;
+}
+.menu .fulcrum::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url('./images/crosshair.png') no-repeat;
+    top: -8px;
+    left: -9px;
+}
+
+
+.menu nav a:hover,
+.menu nav a.selected,
+.submenu a:hover {
+    text-shadow: 
+        0 0 38px #f00a,
+        0 0 28px #f00a,
+        0 0 24px #f00a,
+        0 0 20px #f00a,
+        0 0 16px #f00a,
+        0 0 12px #f00a,
+        0 0 8px #f00a,
+        0 0 4px #f00a;
+}
+
+.submenu {
+    position: fixed;
+    z-index: 11;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu div {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: nowrap;
+    margin: auto;
+    padding: 20px 0 5px;
+    position: relative;
+    background: linear-gradient(90deg, #0000, #000, #0000);
+}
+
+.submenu div::before {
+    content: '';
+    height: 1px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -20%;
+    right: 0;
+    width: 140%;
+    background: linear-gradient(90deg, #fff0, #fff, #fff0);
+}
+
+.submenu div::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: -20%;
+    right: 0;
+    height: 5px;
+    width: 140%;
+    filter: blur(5px);
+    background: 
+        linear-gradient(90deg, #0590, #059, #0590),
+        linear-gradient(90deg, #0590, #059, #0590),
+        linear-gradient(90deg, #0590, #059, #0590);
+}
+
+.submenu div a {
+    margin: 0 20px 15px;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    transition: text-shadow 0.5s ease;
+    position: relative;
+    text-shadow: 
+        0 0 38px #059,
+        0 0 28px #059,
+        0 0 24px #059,
+        0 0 20px #059,
+        0 0 16px #059,
+        0 0 12px #059,
+        0 0 8px #059,
+        0 0 4px #059;
+}
+
+.submenu div a::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, #0590, #059, #0590);
+}
+
+.submenu div.show {
+    display: flex;
+    animation: submenushow 0.5s ease;
+}
+
+@keyframes submenushow {
+    100% {transform: scale(1);}
+    0% {transform: scale(0.1);}
+}
+
+.submenu div a.arrival {
+    animation: arrival 0.5s ease forwards;
+}
+
+@keyframes arrival {
+    100% {transform: translateY(0) scale(1);}
+    0% {transform: translateY(-250px) scale(0.1);}
+}
+
+.modal {
+    position: fixed;
+    height: 100%;
+    top: 0;
+    right: 0;
+    width: 50%;
+    z-index: 10;
+    background: #000e;
+    cursor: default;
+    color: #d2ebff;
+    transform: translateX(110%);
+    transition: all 0.7s ease;
+}
+
+.modal::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    bottom: 15%;
+    width: 5px;
+    filter:blur(5px);
+    background:
+        linear-gradient(0deg, #0590, #059,#0590),
+        linear-gradient(0deg, #0590, #059,#0590),
+        linear-gradient(0deg, #0590, #059,#0590);
+}
+
+.modal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background: linear-gradient(0deg, #fff0, #fff9, #fff0);
+}
+
+.modal .container {
+    padding: 20px 20px 20px 40px;
+    position: relative;
+    z-index: 11;
+    height: calc(100% - 140px);
+    overflow: auto;
+    box-sizing: border-box;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+.modal .container.show {
+    opacity: 1;
+}
+
+.modal .shadow {
+    margin-top: -30px;
+    position: relative;
+    margin-left: 1px;
+    height: 30px;
+    background: linear-gradient(0deg, #000, #0000);
+    z-index: 11;
+}
+
+.modal .close {
+    display: block;
+    right: 25px;
+    bottom: 65px;
+    position: absolute;
+    padding-left: 25px;
+    cursor: pointer;
+    font-size: 20px;
+    text-shadow: 
+        0 0 38px #059,
+        0 0 28px #059,
+        0 0 24px #059,
+        0 0 20px #059,
+        0 0 16px #059,
+        0 0 12px #059,
+        0 0 8px #059,
+        0 0 4px #059;
+}
+
+.modal .close:hover {
+    text-shadow: 
+        0 0 38px #f00a,
+        0 0 28px #f00a,
+        0 0 24px #f00a,
+        0 0 20px #f00a,
+        0 0 16px #f00a,
+        0 0 12px #f00a,
+        0 0 8px #f00a,
+        0 0 4px #f00a;
+}
+
+.modal .close::after,
+.modal .close::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #fff;
+    top: 12px;
+    left: 0;
+    transform: rotate(45deg);
+    box-shadow: 
+        0 0 15px #059,
+        0 0 10px #059,
+        0 0 5px #059,
+        0 0 4px #059,
+        0 0 3px #059,
+        0 0 2px #059,
+        0 0 1px #059;
+}
+
+.modal .close::after {
+    transform: rotate(-45deg);
+}
+
+.modal .close:hover::after,
+.modal .close:hover::before {
+    box-shadow: 
+        0 0 15px #f00,
+        0 0 10px #f00,
+        0 0 5px #f00,
+        0 0 4px #f00,
+        0 0 3px #f00,
+        0 0 2px #f00,
+        0 0 1px #f00;
+}
+
+.modal h2 {
+    text-transform: uppercase;
+    margin-top: 0;
+    text-shadow: 
+        0 0 38px #059,
+        0 0 28px #059,
+        0 0 24px #059,
+        0 0 20px #059,
+        0 0 16px #059,
+        0 0 12px #059,
+        0 0 8px #059,
+        0 0 4px #059;
+}
+
+.modal p {
+    line-height: 1.3em;
+}
+
+.modal.modalactive {
+    transform: translateX(0);
+}
+
+.fragments {
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 1s ease;
+    background-size: contain!important;
+}
+
+.fragments.maple {background: url('./images/maple.png') center center no-repeat;}
+.fragments.oak {background: url('./images/oak.png') center center no-repeat;}
+.fragments.chestnut {background: url('./images/chestnut.png') center center no-repeat;}
+.fragments.linquidambar {background: url('./images/liquidambar.png') center center no-repeat;}
+.fragments.linden {background: url('./images/linden.png') center center no-repeat;}
